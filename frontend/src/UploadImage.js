@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+// const url ="http://localhost:5000"
+const url  ="https://fantastic-palm-tree-4559gx57jg4h5gpp-5000.app.github.dev"
+
+
 
 function UploadImage({profileImage, setprofileImage}) {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -21,7 +25,7 @@ function UploadImage({profileImage, setprofileImage}) {
 
     try {
       // Send the POST request using Axios
-      const response = await axios.post('http://localhost:5000/upload', formData, {
+      const response = await axios.post('`${url}/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -35,6 +39,7 @@ function UploadImage({profileImage, setprofileImage}) {
     } catch (error) {
       // Display an error message if the upload fails
       alert('Upload Failed');
+      console.log(error)
       console.error('Error uploading the file:', error.response ? error.response.data : error.message);
     }
   };

@@ -4,6 +4,10 @@ import './App.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import UploadImage from './UploadImage';
+// const url ="http://localhost:5000"
+const url  ="https://fantastic-palm-tree-4559gx57jg4h5gpp-5000.app.github.dev"
+
+
 
 function Update() {
   const [districts, setDistricts] = useState([]);
@@ -102,7 +106,7 @@ function Update() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/viewdetail/${id}`)
+    axios.get(`${url}/viewdetail/${id}`)
       .then(result => {
         setFormData(result.data); 
       })
@@ -111,7 +115,7 @@ function Update() {
 
   function submitHandle(e) {
     e.preventDefault();
-    axios.put(`http://localhost:5000/update/${id}`, {
+    axios.put(`${url}/update/${id}`, {
       employeeId: id,
       ...formData 
     })

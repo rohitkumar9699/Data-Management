@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import './View.css';
+// const url ="http://localhost:5000"
+const url  ="https://fantastic-palm-tree-4559gx57jg4h5gpp-5000.app.github.dev"
+
 
 function ViewDetails() {
   const { id } = useParams(); // Get 'id' from URL parameters
@@ -11,10 +14,10 @@ function ViewDetails() {
 
   // Fetch employee details from backend
   useEffect(() => {
-    axios.get(`http://localhost:5000/viewdetail/${id}`)
+    axios.get(`${url}/viewdetail/${id}`)
       .then(result => {
         setData(result.data);
-        setProfileImage(`http://localhost:5000/${result.data.profileImage}`); // Set image URL        
+        setProfileImage(`${url}/${result.data.profileImage}`); // Set image URL        
       })
       .catch(err => console.log(err));
   }, [id]);
@@ -30,7 +33,7 @@ function ViewDetails() {
   };
 
   const handleDelete = () => {
-    axios.delete(`http://localhost:5000/delete/${id}`)
+    axios.delete(`${url}/delete/${id}`)
       .then(() => {
         navigate("/"); // Navigate back to the main page after deletion
       })

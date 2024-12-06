@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+// const url ="http://localhost:5000"
+const url  ="https://fantastic-palm-tree-4559gx57jg4h5gpp-5000.app.github.dev"
+
 
 function Home() {
   const [employees, setEmployees] = useState([]); // For storing fetched employee data
@@ -11,7 +14,7 @@ function Home() {
 
   // Fetch employees data from the backend
   useEffect(() => {
-    axios.get("http://localhost:5000")
+    axios.get(url)
       .then(result => {
         console.log(result.data);
         setEmployees(result.data); // Set fetched employee data

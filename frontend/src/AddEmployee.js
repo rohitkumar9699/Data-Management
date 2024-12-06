@@ -3,7 +3,8 @@ import { city } from './city'; // Importing 'city' correctly
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import UploadImage from './UploadImage';
-
+// const url ="http://localhost:5000"
+const url  ="https://fantastic-palm-tree-4559gx57jg4h5gpp-5000.app.github.dev"
 function AddEmployee() {
   const [districts, setDistricts] = useState([]);
   const [cities, setCities] = useState([]);
@@ -81,7 +82,7 @@ function AddEmployee() {
       return;
     }
     axios
-      .post("http://localhost:5000/create", {
+      .post(`${url}/create`, {
         name, phone, dateOfBirth, dateOfJoining, department, employmentStatus, marital, gender, profileImage, address
       })
       .then((result) => {

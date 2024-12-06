@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const Employee = require("./model/Schema.js");
@@ -5,7 +6,8 @@ const fs = require('fs');
 const cors = require('cors');
 const multer = require('multer');
 const PORT = process.env.PORT || 5000;
-const mongo_connect = "mongodb://localhost:27017/emp";
+
+// const mongo_connect = "mongodb://localhost:27017/emp";
 
 // Ensure the uploads directory exists
 const path = './uploads';
@@ -13,10 +15,22 @@ if (!fs.existsSync(path)) {
     fs.mkdirSync(path);
 }
 
-// Connect to MongoDB
-mongoose.connect(mongo_connect)
-    .then(() => console.log("Mongoose Connected Successfully!"))
-    .catch(err => console.log("MongoDB Connection Error: ", err));
+// // Connect to MongoDB
+// mongoose.connect(mongo_connect)
+//     .then(() => console.log("Mongoose Connected Successfully!"))
+//     .catch(err => console.log("MongoDB Connection Error: ", err));
+
+// Function to connect to the database
+const connectDB = async () => {
+    try {
+        await mongoose.connect(process.env.mongo_connect);
+        console.log("Database connected successfully");
+    } catch (error) {
+        console.error("Database connection error:", error);
+        process.exit(1); // Exit process with failurecl
+    }
+};
+
 
 const app = express();
 app.use(express.json());
@@ -140,4 +154,21 @@ app.post("/upload", (req, res) => {
 });
 
 // Start the server
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+// app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+
+
+// Function to start the server
+const start = async () => {
+    try {
+        await connectDB();
+        app.listen(PORT, () => {
+            console.log(`Listening at port ${PORT}......`);
+        });
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+// Start the server
+start();
+
